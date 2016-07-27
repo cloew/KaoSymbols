@@ -12,5 +12,10 @@ def convert(text, mappings):
 def _convert(text, mapping):
     """ Convert the text using the mapping given """
     for key, value in mapping.items():
-        text = text.replace(key, value)
+        if isinstance(value, str):
+            text = text.replace(key, value)
+        else:
+            while key in text:
+                for actualValue in value:
+                    text = text.replace(key, actualValue, 1)
     return text
